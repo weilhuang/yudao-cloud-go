@@ -4,7 +4,7 @@
 
 ## 单进程
 
-`cmd/server` 对应 Java 单体 `yudao-server`。它在一个进程里注册 system 与 infra 的已实现路由，默认 `:48080`，不连接 Nacos。可以先在隔离环境里用它跑前端联调：
+`cmd/server` 对应固定 Mini 中聚合运行 `system` 与 `infra` 的方式。它在一个进程里注册这两个基础模块的已实现路由，默认 `:48080`，不连接 Nacos；它不包含完整 Cloud 的 Java 业务服务。可以先在隔离环境里用它跑前端联调：
 
 ```bash
 YUDAO_CONFIG=configs/config.yaml go run ./cmd/server
@@ -14,7 +14,7 @@ YUDAO_CONFIG=configs/config.yaml go run ./cmd/server
 
 ## 拆分进程
 
-`cmd/system` 与 `cmd/infra` 默认分别监听 `:48081`、`:48082`，注册名必须是 `system-server`、`infra-server`。Java Gateway 按现有路由发现它们；Go 项目目前不重写 Gateway。两个进程共享 MySQL/Redis，Nacos 的 namespace、group、注册 IP/端口必须能被网关实际访问。
+`cmd/system` 与 `cmd/infra` 默认分别监听 `:48081`、`:48082`，注册名必须是 `system-server`、`infra-server`。Java Gateway 按现有路由发现它们，Java 业务服务继续运行；本项目不重写 Gateway 或业务服务。两个 Go 进程共享 MySQL/Redis，Nacos 的 namespace、group、注册 IP/端口必须能被网关和 Java 调用方实际访问。
 
 ```bash
 YUDAO_CONFIG=configs/config-system.yaml go run ./cmd/system

@@ -10,12 +10,13 @@
 | 用管理端联调 | [固定 Vben 前端](frontend.md) | `ui/yudao-ui-admin-vben/` 位于固定提交，页面请求到本机 Go 服务 |
 | 接自己的数据库与缓存 | [配置说明](configuration.md) | 必填环境变量齐全，密钥与 Java 旧数据匹配 |
 | 选择单进程或拆分部署 | [部署与回滚](deployment.md) | Gateway/Nacos 服务名、网络和回滚路径已核对 |
+| 看基础服务做到了哪里 | [Java / Go 能力对照](capability-comparison.md) | 分清静态路由覆盖与行为验收 |
 | 遇到启动或接口问题 | [排错手册](troubleshooting.md) | 能复现并定位到配置、依赖或契约 |
 | 评估 Java 替换 | [兼容范围](compatibility.md)、[安全边界](security-model.md) | Java/Go 混跑、Vben 页面、权限与回滚留下证据 |
 
 ## 当前服务范围
 
-本仓库先以 `yudao-cloud-mini` v2026.08（JDK 25）的 system、infra 为固定 Java 对照，沿用官方 Vben 管理端。它提供单进程入口 `cmd/server`，也提供 `cmd/system`、`cmd/infra` 两个拆分入口；拆分模式继续使用现有 Java Gateway。完整芋道 Cloud 的其他业务模块还不在本阶段范围内。
+本仓库以 `yudao-cloud-mini` v2026.08（JDK 25）的 system、infra 为固定 Java 对照，沿用官方 Vben 管理端。Go 提供单进程入口 `cmd/server` 和拆分入口 `cmd/system`、`cmd/infra`；拆分模式继续使用 Java Gateway，其他业务服务继续由 Java 提供。基础服务已有较高静态路由覆盖，逐功能计数见[能力对照](capability-comparison.md)。
 
 ```mermaid
 flowchart LR

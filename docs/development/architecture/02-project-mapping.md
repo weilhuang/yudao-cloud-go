@@ -1,6 +1,6 @@
 # 02：这个项目怎样落地
 
-最终要让 Java 与 Go 服务在一个系统里按范围共存和替换，因此 Go 的部署入口必须能接入现有 Gateway、Nacos 和数据层。当前代码提供了这些入口，但动态切流、混跑一致性和回滚仍需按[兼容性门槛](../../usage/compatibility.md)验证。
+最终要让 Go 的 `system`、`infra` 基础服务与保留的 Java 业务服务在同一个系统里运行，因此 Go 的部署入口必须能接入现有 Gateway、Nacos 和数据层。当前代码提供了这些入口，且两个基础模块已有大量功能实现；逐功能进度见[能力对照](../../usage/capability-comparison.md)。动态切流、混跑一致性和回滚仍需按[兼容性门槛](../../usage/compatibility.md)验证。
 
 如果照模板把全部 Controller 放在 `api/controller`、全部 Usecase 放在 `usecase`，找“用户导出”就得跨多个大目录。本项目先按芋道的 `system`、`infra` 划分，再把一个功能的 handler、用例、接口和适配器放在同一包里。改变的是**文件位置**，希望保住的是业务规则对外部细节的依赖方向。
 

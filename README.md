@@ -1,7 +1,7 @@
 <p align="center"><img src="website/public/logo.svg" width="76" height="76" alt="yudao-cloud-go 标志"></p>
 <h1 align="center">yudao-cloud-go</h1>
-<p align="center"><strong>让芋道 Cloud 的 Java 与 Go 服务共存，并逐步实现可动态替换的异构系统。</strong></p>
-<p align="center">先对齐接口与数据契约，再按服务切换流量、观察结果并保留回滚路径。</p>
+<p align="center"><strong>Go 承接 system、infra 基础服务；Java 继续承载业务服务。</strong></p>
+<p align="center">在同一套芋道 Cloud 中对齐接口与数据契约，按服务受控切换并保留回滚路径。</p>
 
 <p align="center">
   <a href="https://github.com/weilhuang/yudao-cloud-go/actions/workflows/ci.yml"><img alt="Go CI" src="https://github.com/weilhuang/yudao-cloud-go/actions/workflows/ci.yml/badge.svg"></a>
@@ -19,17 +19,19 @@
 
 ## 项目要解决什么
 
-[yudao-cloud](https://github.com/YunaiV/yudao-cloud) 已有成熟的 Java 服务和管理端。这个项目用 Go 逐步实现兼容的服务能力，目标是在同一系统中让 Java 与 Go **共存、受控切换、能够回滚**：可以先替换一个服务或一组接口，确认契约与数据一致后再扩大范围，而不是要求一次性迁走整个系统。
+[yudao-cloud](https://github.com/YunaiV/yudao-cloud) 已有成熟的 Java 服务和管理端。本项目把 **`system`、`infra` 等基础服务**做成兼容的 Go 实现，目标是让 Go 基础服务与**继续运行的 Java 业务服务**组成可受控切换、可回滚的异构系统。业务模块不在本项目的 Go 重写范围内。
 
-第一阶段固定 [yudao-cloud-mini](https://github.com/yudaocode/yudao-cloud-mini) **v2026.08 / JDK 25** 的 `system`、`infra` 和对应 [Vben 管理端](https://github.com/yudaocode/yudao-ui-admin-vben)作为对照。运行方式有单进程 `cmd/server`，也有接入现有 Java Gateway 与 Nacos 的 `cmd/system`、`cmd/infra`。Go 侧目前不重写 Gateway。
+Go 基础服务以 [yudao-cloud-mini](https://github.com/yudaocode/yudao-cloud-mini) **v2026.08 / JDK 25** 的 `system`、`infra` 和对应 [Vben 管理端](https://github.com/yudaocode/yudao-ui-admin-vben)为固定对照。`cmd/server` 合并运行这两个基础模块；`cmd/system`、`cmd/infra` 则接入现有 Java Gateway 与 Nacos。Gateway 继续由 Java 提供。
 
-> **当前状态：`0.0.1` 开发预览版。** 已实现部分接口和两种运行入口，适合本机开发与隔离环境联调。Java/Go 受控切流、完整混跑、Vben 端到端流程、目标环境回滚等还缺验收证据；**目前不能替换线上 Java 服务**。范围和缺口见[兼容性说明](docs/usage/compatibility.md)。
+> **当前状态：`0.0.1` 开发预览版。** `system`、`infra` 已有成体系的管理接口、内部调用入口和业务实现；静态路由分别命中 Java 基线 **212/212 + 56/56**、**101/102 + 6/6**（Controller + Feign）。这些数字是路径覆盖，尚不是行为验收。Java/Go 混跑、Vben 端到端和目标环境回滚仍需证明，**目前不能切换线上基础服务**。详见[基础服务能力对照](docs/usage/capability-comparison.md)和[兼容范围](docs/usage/compatibility.md)。
 
-| 目标能力 | 当前进展 | 下一步验收 |
+| 组成部分 | 当前进展 | 接下来要验证 |
 | --- | --- | --- |
-| Java 与 Go 服务共存 | 已提供拆分运行入口，可接入现有 Java Gateway 和 Nacos | 验证真实网关、服务发现及跨语言 RPC |
-| 按服务或接口切换 | 已实现部分 Java 风格的 HTTP/RPC 接口与数据访问 | 验证路由、权限、租户、事务、缓存和错误行为，再演练小流量切换 |
-| 出问题能回滚 | [部署文档](docs/usage/deployment.md)列出切流与回滚检查项 | 在目标环境完成流量回切与共享数据恢复演练 |
+| Go `system` 基础服务 | Controller 路径 212/212、Feign 路径 56/56；包含登录、用户权限、租户、消息等功能 | 请求/响应与权限、租户、缓存的 Java/Go 差分 |
+| Go `infra` 基础服务 | Controller 路径 101/102、Feign 路径 6/6；包含文件、配置、代码生成、日志等功能 | 文件通配符路由与下载行为、生成物差分 |
+| Java Gateway 与业务服务 | 继续保留 Java；Go 有 `cmd/system`、`cmd/infra` 拆分入口 | 真实网关、服务发现、跨语言 RPC 和回滚演练 |
+
+分子只是静态路径命中数；[逐功能对照表](docs/usage/capability-comparison.md)列出了 Java 细分能力、Go 对应入口和统计边界。完整 Cloud 中哪些业务服务实际启用，要以目标环境部署清单核实。
 
 ## 从哪里开始
 
@@ -38,6 +40,7 @@
 | 了解项目、在线阅读 | [GitHub Pages 文档站](https://weilhuang.github.io/yudao-cloud-go/) |
 | 本机运行 Go 服务 | [快速开始](docs/usage/getting-started.md) |
 | 选择单进程或拆分部署 | [部署与回滚](docs/usage/deployment.md) |
+| 核对 Java/Go 功能进度 | [基础服务能力对照](docs/usage/capability-comparison.md) |
 | 修改代码、了解架构和测试 | [开发说明](docs/development/index.md) |
 | 跟着 Java 基线自己写一遍 | [重构过程](docs/refactor/index.md) |
 
@@ -66,8 +69,9 @@ flowchart LR
     UI[Vben 管理端] --> MODE{运行方式}
     MODE -->|单进程联调| ONE[cmd/server]
     MODE -->|拆分部署| GW[现有 Java Gateway]
-    GW --> SYS[cmd/system]
-    GW --> INF[cmd/infra]
+    GW --> SYS[Go cmd/system]
+    GW --> INF[Go cmd/infra]
+    GW --> BIZ[Java 业务服务]
     SYS --> NACOS[Nacos]
     INF --> NACOS
     ONE --> DATA[(MySQL / Redis)]
@@ -75,7 +79,7 @@ flowchart LR
     INF --> DATA
 ```
 
-拆分运行时，Go 服务以 `system-server`、`infra-server` 注册；替换路径需要继续验证 Java Gateway 的路由、跨语言调用和共享数据行为。`/rpc-api/**` 只应在受信网络中使用。**图中是当前运行入口，不表示 Java/Go 动态切流已经验收。**切流条件和回滚步骤见[部署说明](docs/usage/deployment.md)。
+拆分运行时，Go 服务以 `system-server`、`infra-server` 注册，Java 业务服务继续运行；替换路径需要验证 Java Gateway 的路由、跨语言调用和共享数据行为。`/rpc-api/**` 只应在受信网络中使用。**图中是目标组合，不表示动态切流已经验收。**切流条件和回滚步骤见[部署说明](docs/usage/deployment.md)。
 
 ## 文档与贡献
 

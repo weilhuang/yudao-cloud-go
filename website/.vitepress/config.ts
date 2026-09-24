@@ -5,7 +5,7 @@ import { withMermaid } from 'vitepress-plugin-mermaid'
 export default withMermaid(defineConfig({
   lang: 'zh-CN',
   title: 'yudao-cloud-go',
-  description: '芋道 Cloud Java 与 Go 异构共存、动态替换目标的使用、开发与重构文档',
+  description: 'Go system 和 infra 基础服务与 Java 业务服务组成芋道 Cloud 异构系统',
   // 文档正文仍在仓库根目录的 docs/，站点依赖和主题放在 website/。
   srcDir: '../docs',
   base: '/yudao-cloud-go/',
@@ -39,6 +39,7 @@ export default withMermaid(defineConfig({
           { text: '前端联调', link: '/usage/frontend' },
           { text: '配置说明', link: '/usage/configuration' },
           { text: '部署与回滚', link: '/usage/deployment' },
+          { text: '基础服务能力对照', link: '/usage/capability-comparison' },
           { text: '兼容范围', link: '/usage/compatibility' },
           { text: '安全边界', link: '/usage/security-model' },
           { text: '排错手册', link: '/usage/troubleshooting' },

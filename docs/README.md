@@ -1,6 +1,6 @@
 # 文档导航
 
-`yudao-cloud-go` 的目标是将芋道 Cloud 逐步升级为 Java 与 Go 共存、可按服务受控切换并回滚的异构系统。当前以 `yudao-cloud-mini` v2026.08 的 system、infra 为第一阶段对照范围；目标与当前进展之间的差距见[兼容范围](usage/compatibility.md)。这里的文档按读者要做的事分成三部分。
+`yudao-cloud-go` 的目标是让 Go 的 `system`、`infra` 基础服务与继续运行的 Java 业务服务组成可受控切换、可回滚的芋道 Cloud 异构系统。当前以 `yudao-cloud-mini` v2026.08 的两个基础模块为固定对照；[能力对照](usage/capability-comparison.md)按功能列出已有实现，[兼容范围](usage/compatibility.md)说明验收边界。这里的文档按读者要做的事分成三部分。
 
 | 部分 | 你要解决的问题 | 入口 |
 | --- | --- | --- |
@@ -8,7 +8,7 @@
 | **2. 开发说明** | 找到功能代码，理解架构，补测试并参与项目 | [进入开发说明](development/index.md) |
 | **3. 重构过程** | 按小任务从 Java 基线逐步写出 Go 实现 | [进入重构过程](refactor/index.md) |
 
-第一次使用建议先完成[本机快速开始](usage/getting-started.md)，再按自己的目标进入开发或重构章节。重构过程提供一条可以跟做的路径，是现有服务之外的附加价值；项目本身的目标是逐步建立可验证、可切换、可回滚的 Java/Go 共存能力。
+第一次使用建议先完成[本机快速开始](usage/getting-started.md)，再按自己的目标进入开发或重构章节。重构过程提供一条可以跟做的路径，是现有基础服务之外的附加价值；项目本身的目标是让 Go 基础服务接入保留 Java 业务服务的系统。
 
 可以直接阅读[在线文档](https://weilhuang.github.io/yudao-cloud-go/)。本机预览则进入仓库根目录的 `website/`，运行 `npm ci` 和 `npm run docs:dev`，步骤见[文档站维护](development/site.md#本机预览)。要初始化 Go 服务的数据库，SQL 文件位置和导入命令见[快速开始](usage/getting-started.md)的第 3 步。
 
