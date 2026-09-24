@@ -2,6 +2,8 @@
 
 这里放 VitePress 的依赖、配置、主题和静态资源。公开文档正文仍在仓库根目录的 [`docs/`](../docs/README.md)；改使用说明或开发说明时，直接编辑那里的 Markdown。
 
+在线站点：[https://weilhuang.github.io/yudao-cloud-go/](https://weilhuang.github.io/yudao-cloud-go/)。
+
 ## 本机启动
 
 需要 Node.js 24 和 npm。在仓库根目录执行：

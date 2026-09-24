@@ -22,8 +22,8 @@ Mermaid 围栏代码块直接写在 Markdown 里，由 `vitepress-plugin-mermaid
 
 ## GitHub Pages
 
-仓库名为 `yudao-cloud-go`，所以 VitePress 的 `base` 是 `/yudao-cloud-go/`。仓库若改名或改自定义域名，要同步改 `website/.vitepress/config.ts` 的 `base` 和图标路径。计划地址是 `https://weilhuang.github.io/yudao-cloud-go/`；**只有 Pages 真正发布且访问成功后才把它当成可用地址**。
+仓库名为 `yudao-cloud-go`，所以 VitePress 的 `base` 是 `/yudao-cloud-go/`。仓库若改名或改自定义域名，要同步改 `website/.vitepress/config.ts` 的 `base` 和图标路径。站点已发布在 [https://weilhuang.github.io/yudao-cloud-go/](https://weilhuang.github.io/yudao-cloud-go/)；每次改动仍要检查新一轮发布结果。
 
-维护者在 GitHub 仓库的 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。`.github/workflows/docs.yml` 监听 `docs/**` 和 `website/**`，在 PR 上只构建，在 `main` 的相关变更或手动运行时构建并发布 `website/.vitepress/dist`。工作流在 `website/` 安装和构建，缓存使用 `website/package-lock.json`；它只部署文档，不部署 Go 服务。仓库已经公开，但 Pages 的实际访问仍要等新代码推送并运行工作流后验证。
+Pages 发布源使用 **GitHub Actions**。`.github/workflows/docs.yml` 监听 `docs/**` 和 `website/**`，在 PR 上只构建，在 `main` 的相关变更或手动运行时构建并发布 `website/.vitepress/dist`。工作流在 `website/` 安装和构建，缓存使用 `website/package-lock.json`；它只部署文档，不部署 Go 服务。
 
-这份说明只配置流水线，没有替用户推送代码或开通 Pages。发布前还要检查 GitHub 仓库可见性、Pages 设置、构建日志和实际网页，尤其是内部链接、搜索与移动端布局。
+文档站已可访问，不代表后续每次提交都已自动发布。维护者还要看对应的 Actions run 和实际网页，尤其是内部链接、搜索与移动端布局。README 顶部的“在线文档”直接指向这个站点。

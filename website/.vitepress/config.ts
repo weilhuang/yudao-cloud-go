@@ -5,7 +5,7 @@ import { withMermaid } from 'vitepress-plugin-mermaid'
 export default withMermaid(defineConfig({
   lang: 'zh-CN',
   title: 'yudao-cloud-go',
-  description: '芋道 Cloud Go 后端重构的使用、开发与重构过程文档',
+  description: '芋道 Cloud Java 与 Go 异构共存、动态替换目标的使用、开发与重构文档',
   // 文档正文仍在仓库根目录的 docs/，站点依赖和主题放在 website/。
   srcDir: '../docs',
   base: '/yudao-cloud-go/',

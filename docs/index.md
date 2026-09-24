@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: yudao-cloud-go
-  text: 面向芋道 Cloud 的 Go 后端重构
-  tagline: 以 system、infra 为第一阶段，逐步对齐 Java 服务的接口、数据和部署契约。
+  text: 迈向可动态替换的 Java / Go 异构系统
+  tagline: 从 system、infra 开始对齐契约，让两种服务逐步具备共存、受控切换和回滚能力。
   image:
     src: /logo.svg
     alt: yudao-cloud-go 标志
