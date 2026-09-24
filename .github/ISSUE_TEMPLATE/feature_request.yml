@@ -1,0 +1,22 @@
+name: 功能建议
+description: 说明要解决的场景和验收方式
+title: "feat: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 使用场景
+      description: 谁在什么情况下遇到了什么问题？
+    validations:
+      required: true
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Java / Vben 对照
+      description: 若是兼容功能，写路径、源码位置或可复现流程。
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 怎样算完成
+      description: 给出可观察的结果和测试边界。

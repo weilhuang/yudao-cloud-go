@@ -4,3 +4,17 @@ bin/
 .idea
 .env
 .vscode
+*.test
+.env.*
+!.env.example
+*.pem
+*.key
+coverage.out
+coverage.html
+*.log
+node_modules/
+/docs/node_modules
+/.playwright-cli/
+__pycache__/
+website/.vitepress/cache/
+website/.vitepress/dist/

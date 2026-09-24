@@ -1,0 +1,56 @@
+name: Go CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: 单元测试与静态检查
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: 扫描待发布历史
+        run: python3 scripts/audit-public-history.py HEAD
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+      - name: 检查依赖
+        run: go mod verify
+      - name: 检查格式
+        run: test -z "$(gofmt -l $(git ls-files '*.go'))"
+      - name: 单元测试
+        run: go test -count=1 ./...
+      - name: 静态检查
+        run: go vet ./...
+      - name: 编译入口
+        run: go build ./cmd/...
+
+  integration:
+    name: MySQL Redis Nacos 集成测试
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+      - name: Testcontainers 集成测试
+        run: go test -tags=integration -p 1 -parallel 1 -count=1 -timeout 45m ./...

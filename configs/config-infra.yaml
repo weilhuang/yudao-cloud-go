@@ -1,0 +1,27 @@
+# 模块启动。服务名必须是 infra-server。
+app:
+  name: infra-server
+http:
+  addr: ":48082"
+  uploadMaxFileBytes: 16777216 # 单文件 16 MiB，与 Java 对齐
+  uploadMaxRequestBytes: 33554432 # multipart 整请求 32 MiB
+  readTimeoutSeconds: 120 # 包括请求体；慢速上传到时终止
+mysql:
+  dsn: "" # 通过 YUDAO_MYSQL_DSN 注入
+mybatis:
+  encryptorPassword: "" # 通过 YUDAO_MYBATIS_ENCRYPTOR_PASSWORD 注入
+redis:
+  addr: "127.0.0.1:6379"
+  password: ""
+  db: 0
+nacos:
+  enabled: true
+  addr: "127.0.0.1:8848"
+  grpcPort: 0
+  namespace: dev
+  group: DEFAULT_GROUP
+  serviceName: infra-server
+  registerIP: "127.0.0.1"
+  registerPort: 48082
+  version: "1.0.0"
+  tag: ""

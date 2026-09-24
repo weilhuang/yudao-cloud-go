@@ -1,0 +1,3 @@
+[submodule "vben"]
+	path = ui/yudao-ui-admin-vben
+	url = https://github.com/yudaocode/yudao-ui-admin-vben.git

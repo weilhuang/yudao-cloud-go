@@ -1,0 +1,36 @@
+name: Bug 报告
+description: 提供能复现的问题和预期行为
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "请先移除日志和截图中的令牌、口令与个人数据。安全漏洞请看 SECURITY.md，不要公开提交。"
+  - type: input
+    id: version
+    attributes:
+      label: Go commit
+      placeholder: "git rev-parse HEAD"
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: 运行方式
+      options: [单进程, system/infra 拆分, Java/Go 混跑, 其他]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 用最少步骤说明输入、操作和环境。
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 预期和实际结果
+      description: 若与 Java 不同，请写固定基线的对应行为。
+    validations:
+      required: true

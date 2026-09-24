@@ -1,0 +1,24 @@
+# 模块启动。服务名必须是 system-server，才能被现有 Java 网关发现。
+app:
+  name: system-server
+http:
+  addr: ":48081"
+mysql:
+  dsn: "" # 通过 YUDAO_MYSQL_DSN 注入
+mybatis:
+  encryptorPassword: "" # 通过 YUDAO_MYBATIS_ENCRYPTOR_PASSWORD 注入
+redis:
+  addr: "127.0.0.1:6379"
+  password: ""
+  db: 0
+nacos:
+  enabled: true
+  addr: "127.0.0.1:8848"
+  grpcPort: 0
+  namespace: dev
+  group: DEFAULT_GROUP
+  serviceName: system-server
+  registerIP: "127.0.0.1"
+  registerPort: 48081
+  version: "1.0.0"
+  tag: ""

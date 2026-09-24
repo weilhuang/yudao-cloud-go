@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="yudao-cloud-go">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#1677e8"/>
+      <stop offset="1" stop-color="#19b9a8"/>
+    </linearGradient>
+  </defs>
+  <rect x="9" y="9" width="142" height="142" rx="34" fill="url(#g)"/>
+  <path d="M45 51l26 29-26 29M115 51L89 80l26 29" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="80" cy="80" r="7" fill="#fff"/>
+</svg>

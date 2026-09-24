@@ -1,0 +1,18 @@
+# 单体。对应 Java yudao-server，不注册 Nacos。
+app:
+  name: yudao-server
+http:
+  addr: ":48080"
+  uploadMaxFileBytes: 16777216 # 单文件 16 MiB，与 Java 对齐
+  uploadMaxRequestBytes: 33554432 # multipart 整请求 32 MiB
+  readTimeoutSeconds: 120 # 包括请求体；慢速上传到时终止
+mysql:
+  dsn: "" # 通过 YUDAO_MYSQL_DSN 注入，不能把真实口令提交到仓库
+mybatis:
+  encryptorPassword: "" # 与 Java 使用相同密钥；通过 YUDAO_MYBATIS_ENCRYPTOR_PASSWORD 注入
+redis:
+  addr: "127.0.0.1:6379"
+  password: ""
+  db: 0
+nacos:
+  enabled: false

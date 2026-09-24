@@ -1,0 +1,22 @@
+{
+  "name": "yudao-cloud-go-docs",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "predocs:dev": "node scripts/link-docs-deps.mjs",
+    "docs:dev": "vitepress dev .",
+    "predocs:build": "node scripts/link-docs-deps.mjs",
+    "docs:build": "vitepress build .",
+    "docs:preview": "vitepress preview ."
+  },
+  "devDependencies": {
+    "debug": "^4.4.3",
+    "mermaid": "11.17.2",
+    "vitepress": "1.6.4",
+    "vitepress-plugin-mermaid": "2.0.17"
+  },
+  "overrides": {
+    "vite": "6.4.3"
+  }
+}

@@ -1,0 +1,29 @@
+yudao-cloud-go
+Copyright 2026 weilhuang and contributors
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+This project aims to reimplement the backend capabilities of yudao-cloud
+(https://github.com/YunaiV/yudao-cloud). The current compatibility baseline
+is the system and infra scope of yudao-cloud-mini
+(https://github.com/yudaocode/yudao-cloud-mini), which is licensed under
+the MIT License. The frozen mini reference commit is
+712fc7c2528e434217833bf04e438bf18a9c96e4.
+
+The yudao-ui-admin-vben frontend
+(https://github.com/yudaocode/yudao-ui-admin-vben) is included as a Git
+submodule at ui/yudao-ui-admin-vben/, pinned to commit
+486870dd8496d94b79aaa183069df8407de8cbf9 (v2026.08). The parent
+repository stores only the commit pointer; cloning the submodule fetches its
+source and its own MIT LICENSE from the upstream repository.
+
+The embedded area.csv and ip2region.xdb files under internal/system/area/data
+were taken from yudao-cloud-mini's starter-biz-ip resources at that commit.
+The yudao-cloud-mini MIT license text is included at
+third_party/licenses/yudao-cloud-mini-MIT.txt. The xdb searcher and utility Go sources under
+internal/system/area/xdb were taken from ip2region v2.7.0, Apache-2.0;
+see internal/system/area/xdb/NOTICE and
+https://github.com/lionsoul2014/ip2region/tree/v2.7.0/binding/golang/xdb.
+
+The architecture is informed by go-backend-clean-architecture
+(https://github.com/amitshekhariitbhu/go-backend-clean-architecture),
+Apache-2.0. No affiliation or endorsement by either upstream project is claimed.

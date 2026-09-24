@@ -1,0 +1,4 @@
+binding/golang/xdb 的 searcher.go 与 util.go 取自 ip2region v2.7.0（Apache-2.0），
+与冻结 yudao-cloud-mini 的 org.lionsoul:ip2region:2.7.0 相同。
+查询算法未改；并发由 area 包在调用 Search 时加锁。
+上游：https://github.com/lionsoul2014/ip2region/tree/v2.7.0/binding/golang/xdb
