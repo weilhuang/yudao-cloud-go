@@ -61,7 +61,7 @@ flowchart LR
 | WebSocket 发送 | 内部消息推送 | 0/0 | 1/1 | `internal/platform/ws` |
 | **合计** |  | **101/102** | **6/6** |  |
 
-唯一未按**字面路径**命中的 Java Controller 是 `GET /admin-api/infra/file/{configId}/get/**`；Go 使用 `GET /admin-api/infra/file/:configId/get/*objectPath`。两种框架的通配符语法不同，不能仅用字符串比较判断缺失。仍需用真实文件名、编码字符、MIME、存储后端和错误路径做 Java/Go 差分。代码生成也要比较生成的文件内容，不能只看 11 个入口。
+唯一未按**字面路径**命中的 Java Controller 是 `GET /admin-api/infra/file/{configId}/get/**`；Go 使用 `GET /admin-api/infra/file/:configId/get/*objectPath`。两种框架的通配符语法不同，不能仅用字符串比较判断缺失。仍需用真实文件名、编码字符、MIME、存储后端和错误路径做 Java/Go 差分。代码生成也要比较生成的文件内容，不能只看 11 个入口；当前生成器沿用 Java、Vue3 Element 和 SQL 模板，不生成 Go 或 Vben 代码。
 
 ## 继续由 Java 承担的部分
 

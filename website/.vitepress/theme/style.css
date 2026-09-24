@@ -1,4 +1,6 @@
 :root {
+  /* 桌面端给正文和右侧目录留足空间；窄屏仍由 VitePress 默认断点收起侧栏。 */
+  --vp-layout-max-width: 1760px;
   --vp-c-brand-1: #176fd4;
   --vp-c-brand-2: #0d87a8;
   --vp-c-brand-3: #19a88e;
@@ -65,6 +67,13 @@
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
   background: var(--vp-c-bg-soft);
+}
+
+/* 默认主题有右侧目录时将正文限制为 688px，技术文档的图表和表格会过早横向滚动。 */
+@media (min-width: 1280px) {
+  .VPContent .VPDoc.has-aside .content .content-container {
+    max-width: 960px;
+  }
 }
 
 @media (max-width: 680px) {

@@ -18,3 +18,5 @@ node_modules/
 __pycache__/
 website/.vitepress/cache/
 website/.vitepress/dist/
+# 上游整库脚本含演示配置，只在本机使用，避免误提交。
+/sql/mysql/ruoyi-vue-pro.sql

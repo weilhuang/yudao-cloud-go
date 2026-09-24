@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: yudao-cloud-go
-  text: Go 基础服务 + Java 业务服务
-  tagline: 用 Go 承接 system、infra，在同一套芋道 Cloud 中与 Java 业务服务共存、受控切换并回滚。
+  text: Go 版本的后台管理基础服务
+  tagline: 登录权限、租户、消息、文件和代码生成等 system / infra 能力，对接固定版本 Vben 管理端，与 Java 业务服务共存。
   image:
     src: /logo.svg
     alt: yudao-cloud-go 标志
@@ -20,6 +20,14 @@ hero:
       link: /refactor/
 
 features:
+  - icon: 🧑‍💼
+    title: 系统功能
+    details: 登录、用户组织、角色权限、多租户、字典地区和消息通知。
+    link: /usage/capability-comparison
+  - icon: 🗄️
+    title: 基础设施
+    details: 文件、参数、数据源、代码生成、Redis 监控和 API 日志。
+    link: /usage/capability-comparison
   - icon: ⚙️
     title: 使用说明
     details: 启动、配置、部署与回滚，先弄清当前版本能承担什么。
@@ -36,5 +44,5 @@ features:
 
 <div class="home-status">
   <strong>项目状态：0.0.1 开发预览版</strong>
-  <span>system、infra 已有较高路由覆盖；线上切流仍需行为和回滚验收。<a href="/yudao-cloud-go/usage/capability-comparison.html">查看功能对照 →</a></span>
+  <span>可本机运行并联调 Vben；线上切流仍需行为和回滚验收。<a href="/yudao-cloud-go/usage/capability-comparison.html">查看功能对照 →</a></span>
 </div>

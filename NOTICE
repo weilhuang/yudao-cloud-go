@@ -2,9 +2,9 @@ yudao-cloud-go
 Copyright 2026 weilhuang and contributors
 Licensed under the Apache License, Version 2.0. See LICENSE.
 
-This project aims to reimplement the backend capabilities of yudao-cloud
-(https://github.com/YunaiV/yudao-cloud). The current compatibility baseline
-is the system and infra scope of yudao-cloud-mini
+This project implements the system and infra foundation services of
+yudao-cloud (https://github.com/YunaiV/yudao-cloud) in Go; Java business
+services remain Java. The current compatibility baseline is yudao-cloud-mini
 (https://github.com/yudaocode/yudao-cloud-mini), which is licensed under
 the MIT License. The frozen mini reference commit is
 712fc7c2528e434217833bf04e438bf18a9c96e4.

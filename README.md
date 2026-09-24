@@ -1,7 +1,7 @@
 <p align="center"><img src="website/public/logo.svg" width="76" height="76" alt="yudao-cloud-go 标志"></p>
 <h1 align="center">yudao-cloud-go</h1>
-<p align="center"><strong>Go 承接 system、infra 基础服务；Java 继续承载业务服务。</strong></p>
-<p align="center">在同一套芋道 Cloud 中对齐接口与数据契约，按服务受控切换并保留回滚路径。</p>
+<p align="center"><strong>Go 版本的芋道后台管理基础服务</strong></p>
+<p align="center">兼容固定版本的 Vben 管理端，用 Go 提供 system、infra 能力，并与 Java 业务服务组成异构系统。</p>
 
 <p align="center">
   <a href="https://github.com/weilhuang/yudao-cloud-go/actions/workflows/ci.yml"><img alt="Go CI" src="https://github.com/weilhuang/yudao-cloud-go/actions/workflows/ci.yml/badge.svg"></a>
@@ -17,11 +17,45 @@
   <a href="docs/refactor/index.md">重构过程</a>
 </p>
 
-## 项目要解决什么
+
+## 项目实现目标
 
 [yudao-cloud](https://github.com/YunaiV/yudao-cloud) 已有成熟的 Java 服务和管理端。本项目把 **`system`、`infra` 等基础服务**做成兼容的 Go 实现，目标是让 Go 基础服务与**继续运行的 Java 业务服务**组成可受控切换、可回滚的异构系统。业务模块不在本项目的 Go 重写范围内。
 
-Go 基础服务以 [yudao-cloud-mini](https://github.com/yudaocode/yudao-cloud-mini) **v2026.08 / JDK 25** 的 `system`、`infra` 和对应 [Vben 管理端](https://github.com/yudaocode/yudao-ui-admin-vben)为固定对照。`cmd/server` 合并运行这两个基础模块；`cmd/system`、`cmd/infra` 则接入现有 Java Gateway 与 Nacos。Gateway 继续由 Java 提供。
+Go 基础服务以 [yudao-cloud-mini](https://github.com/yudaocode/yudao-cloud-mini) **v2026.08 / JDK 25** 的 `system`、`infra` 和对应 [Vben 管理端](https://github.com/yudaocode/yudao-ui-admin-vben)为固定对照。`cmd/server` 合并运行这两个基础模块；`cmd/system`、`cmd/infra` 则接入现有 Java Gateway 与 Nacos。Gateway 继续由 Java 提供。前端代码保留上游固定提交；Go 后端按它使用的接口设计，完整页面流程仍在验收中。
+
+
+## 项目实现功能
+
+`yudao-cloud-go` 已有可运行的 Go 后台服务：登录、用户与权限、租户、消息通知、文件、配置、代码生成等能力分别落在 `system` 和 `infra` 中。接口以 [yudao-cloud-mini v2026.08 / JDK 25](https://github.com/yudaocode/yudao-cloud-mini) 为对照，管理端使用仓库中固定版本的 [yudao-ui-admin-vben](https://github.com/yudaocode/yudao-ui-admin-vben) 子模块。下面按[芋道 Cloud README 的功能分类](https://github.com/YunaiV/yudao-cloud)介绍**本仓库实际覆盖的范围**。
+
+### 系统功能 · `system`
+
+| 功能 | Go 实现的内容 |
+| --- | --- |
+| 登录与会话 | 登录、验证码、令牌刷新与退出，提供在线令牌管理入口 |
+| 用户与组织 | 用户、个人资料、部门、岗位维护，以及用户导入导出 |
+| 角色与权限 | 角色、菜单、按钮权限与数据范围配置 |
+| SaaS 多租户 | 租户与租户套餐管理，按租户处理基础服务请求 |
+| 字典与地区 | 字典类型、字典数据、地区和应用端查询 |
+| OAuth2 与社交 | OAuth2 客户端、授权与令牌接口，社交用户绑定和查询 |
+| 消息通知 | 短信渠道、模板、验证码和日志；邮件账号、模板和日志；公告与站内信 |
+| 审计日志 | 登录日志与操作日志的记录和查询 |
+
+### 基础设施 · `infra`
+
+| 功能 | Go 实现的内容 |
+| --- | --- |
+| 文件服务 | 上传、读取与下载，文件配置；支持数据库、本地目录、FTP、SFTP 和 S3 存储适配器 |
+| 参数与数据源 | 系统参数和数据源配置的管理接口 |
+| 代码生成 | 数据表导入、字段配置、预览与下载 Java、Vue3 Element 和 SQL 模板；当前不生成 Go 或 Vben 代码 |
+| 运行诊断 | Redis 监控、API 访问日志与错误日志 |
+| 实时通信 | WebSocket 接入与内部发送接口 |
+| 示例数据 | 联系人、分类、学生管理示例 |
+
+上述功能已有对应的 Go 路由和业务代码；外部短信/存储渠道、浏览器完整操作和 Java/Go 行为一致性仍需在目标环境验收。[逐功能能力对照](docs/usage/capability-comparison.md)列出 Java Controller、Feign 与 Go 的静态路径计数，不能把路径覆盖率当成业务验收率。上游 README 中的工作流、商城、支付、报表等业务系统**不属于本仓库 Go 后端**。
+
+## 如何接入 yudao-cloud
 
 > **当前状态：`0.0.1` 开发预览版。** `system`、`infra` 已有成体系的管理接口、内部调用入口和业务实现；静态路由分别命中 Java 基线 **212/212 + 56/56**、**101/102 + 6/6**（Controller + Feign）。这些数字是路径覆盖，尚不是行为验收。Java/Go 混跑、Vben 端到端和目标环境回滚仍需证明，**目前不能切换线上基础服务**。详见[基础服务能力对照](docs/usage/capability-comparison.md)和[兼容范围](docs/usage/compatibility.md)。
 
@@ -46,7 +80,7 @@ Go 基础服务以 [yudao-cloud-mini](https://github.com/yudaocode/yudao-cloud-m
 
 ### 本机运行
 
-需要 Go 1.24.3、Docker Desktop、Docker Compose、Git 和 OpenSSL。以下是启动顺序；**数据库 SQL 含 `DROP TABLE`，只能按[快速开始](docs/usage/getting-started.md)导入新建的本机空库**。SQL 使用固定 Java 提交的 [`sql/mysql/ruoyi-vue-pro.sql`](https://github.com/yudaocode/yudao-cloud-mini/blob/712fc7c2528e434217833bf04e438bf18a9c96e4/sql/mysql/ruoyi-vue-pro.sql)，本仓库没有复制整库文件。
+需要 Go 1.24.3、Docker Desktop、Docker Compose、Git 和 OpenSSL。以下是启动顺序；**数据库 SQL 含 `DROP TABLE`，只能按[快速开始](docs/usage/getting-started.md)导入新建的本机空库**。SQL 从固定 Java 基线获取，本仓库不收录整库文件。
 
 ```bash
 git clone https://github.com/weilhuang/yudao-cloud-go.git
