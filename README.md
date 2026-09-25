@@ -18,14 +18,14 @@
 </p>
 
 
-## 项目实现目标
+## 项目目标
 
 [yudao-cloud](https://github.com/YunaiV/yudao-cloud) 已有成熟的 Java 服务和管理端。本项目把 **`system`、`infra` 等基础服务**做成兼容的 Go 实现，目标是让 Go 基础服务与**继续运行的 Java 业务服务**组成可受控切换、可回滚的异构系统。业务模块不在本项目的 Go 重写范围内。
 
 Go 基础服务以 [yudao-cloud-mini](https://github.com/yudaocode/yudao-cloud-mini) **v2026.08 / JDK 25** 的 `system`、`infra` 和对应 [Vben 管理端](https://github.com/yudaocode/yudao-ui-admin-vben)为固定对照。`cmd/server` 合并运行这两个基础模块；`cmd/system`、`cmd/infra` 则接入现有 Java Gateway 与 Nacos。Gateway 继续由 Java 提供。前端代码保留上游固定提交；Go 后端按它使用的接口设计，完整页面流程仍在验收中。
 
 
-## 项目实现功能
+## 项目功能
 
 `yudao-cloud-go` 已有可运行的 Go 后台服务：登录、用户与权限、租户、消息通知、文件、配置、代码生成等能力分别落在 `system` 和 `infra` 中。接口以 [yudao-cloud-mini v2026.08 / JDK 25](https://github.com/yudaocode/yudao-cloud-mini) 为对照，管理端使用仓库中固定版本的 [yudao-ui-admin-vben](https://github.com/yudaocode/yudao-ui-admin-vben) 子模块。下面按[芋道 Cloud README 的功能分类](https://github.com/YunaiV/yudao-cloud)介绍**本仓库实际覆盖的范围**。
 
